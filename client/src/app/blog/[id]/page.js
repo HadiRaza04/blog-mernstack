@@ -62,11 +62,13 @@ export default function BlogDetail() {
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-8">
         {post.images?.map((img, index) => (
           <div key={index} className={`${index === 0 ? 'col-span-2 row-span-2' : 'col-span-1'}`}>
-            <img 
-              src={img} 
-              alt={`Slide ${index}`} 
-              className="w-full h-full object-cover rounded-lg shadow-sm"
-            />
+            <a href={img} target='_blank' rel="noopener noreferrer">
+              <img 
+                src={img} 
+                alt={`Slide ${index}`} 
+                className="w-full h-full object-cover rounded-lg shadow-sm"
+              />
+            </a>
           </div>
         ))}
       </div>
@@ -83,7 +85,8 @@ export default function BlogDetail() {
       </header>
 
       <article className="prose prose-lg max-w-none text-gray-700 leading-relaxed border-b pb-10">
-        {post.content}
+        <div dangerouslySetInnerHTML={{ __html: post.content }} />
+        {/* {post.content} */}
       </article>
 
       {/* 3. Comments Section */}

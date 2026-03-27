@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import NavLink from './NavLink';
 
 export default function Navbar() {
   const router = useRouter();
@@ -36,13 +37,13 @@ export default function Navbar() {
 
           {/* Navigation Links */}
           <div className="hidden md:flex space-x-8 items-center">
-            <Link href="/" className="text-gray-600 hover:text-blue-600 font-medium transition">
-              Home
-            </Link>
+            <NavLink href="/" className="text-gray-600 hover:text-blue-600 font-medium transition">
+              Blogs
+            </NavLink>
             {user?.isAdmin && (
-              <Link href="/admin/dashboard" className="text-gray-600 hover:text-blue-600 font-medium transition">
+              <NavLink href="/admin/dashboard" className="text-gray-600 hover:text-blue-600 font-medium transition">
                 Dashboard
-              </Link>
+              </NavLink>
             )}
           </div>
 
