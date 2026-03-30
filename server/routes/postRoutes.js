@@ -1,6 +1,7 @@
 import express from 'express';
 import { 
-  getPosts, 
+  getPosts,
+  getPostsByQuery,
   getPostById, 
   createPost, 
   updatePost, 
@@ -18,6 +19,7 @@ const postRouter = express.Router();
 
 // Existing Routes
 postRouter.get('/', getPosts);
+postRouter.get('/query', getPostsByQuery);
 postRouter.get('/:id', getPostById);
 postRouter.post('/', protect, admin, upload.array('images', 5), createPost);
 postRouter.put('/:id', protect, admin, upload.array('images', 5), updatePost);

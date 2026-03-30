@@ -32,6 +32,21 @@ export const getPosts = async (req, res) => {
   }
 };
 
+// controllers/postController.js
+export const getPostsByQuery = async (req, res) => {
+  const { category } = req.query; // Query se category uthayein
+  try {
+    let query = { isPublished: true };
+    if (category && category !== 'All') {
+      query.category = category;
+    }
+    const posts = await Post.find(query).sort({ createdAt: -1 });
+    res.json(posts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // @desc    Toggle Publish Status
 export const togglePostStatus = async (req, res) => {
   const post = await Post.findById(req.params.id);
