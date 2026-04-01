@@ -23,7 +23,8 @@ export const registerUser = async (req, res) => {
     if(password.length < 6) {
       return res.status(400).json({ message: 'Password must be at least 6 characters' });
     }
-    const user = new User({ name, email, password });
+    const verificationToken = crypto.randomBytes(20).toString('hex');
+    const user = new User({ name, email, password, verificationToken });
     await user.save();
     
     return res.status(201).json({ success: true, message: "User created."})
