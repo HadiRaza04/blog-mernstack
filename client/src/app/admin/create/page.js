@@ -2,6 +2,7 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import API from "@/lib/axios";
+import { ToastContainer, toast } from 'react-toastify';
 import {
   ImagePlus,
   X,
@@ -15,6 +16,12 @@ import {
 } from "lucide-react";
 
 export default function CreatePost() {
+  const notifyError = (msg) => {
+    toast.error(msg);
+  };
+  const notifySuccess = (msg) => {
+    toast.success(msg);
+  };
   const router = useRouter();
   const editorRef = useRef(null); // Reference for our custom editor
   const [loading, setLoading] = useState(false);
@@ -70,7 +77,7 @@ export default function CreatePost() {
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
     if (images.length + files.length > 5) {
-      alert("You can only upload up to 5 images.");
+      notifyError("You can only upload up to 5 images.");
       return;
     }
     setImages([...images, ...files]);
@@ -102,10 +109,10 @@ export default function CreatePost() {
       await API.post("/posts", data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      alert("Post created successfully!");
+      notifySuccess("Post created successfully!");
       router.push("/admin/dashboard");
     } catch (err) {
-      alert(err.response?.data?.message || "Failed to create post");
+      notifyError(err.response?.data?.message || "Failed to create post");
     } finally {
       setLoading(false);
     }
@@ -113,6 +120,7 @@ export default function CreatePost() {
 
   return (
     <div className="max-w-4xl mx-auto p-6 md:p-10">
+      <ToastContainer />
       <div className="mb-8 text-center">
         <h1 className="text-3xl font-bold text-gray-900">Create New Blog</h1>
         <p className="text-gray-500">
@@ -142,7 +150,7 @@ export default function CreatePost() {
 
         {/* Category & Status */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
+          {/* <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Category
             </label>
@@ -157,6 +165,42 @@ export default function CreatePost() {
               <option value="Coding">Coding</option>
               <option value="Business">Business</option>
             </select>
+          </div> */}
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Category
+            </label>
+
+            <select
+              className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition"
+              value={
+                ["Technology", "Lifestyle", "Coding", "Business"].includes(
+                  formData.category,
+                )
+                  ? formData.category
+                  : ""
+              }
+              onChange={(e) =>
+                setFormData({ ...formData, category: e.target.value })
+              }
+            >
+              <option value="">Select Category</option>
+              <option value="Technology">Technology</option>
+              <option value="Lifestyle">Lifestyle</option>
+              <option value="Coding">Coding</option>
+              <option value="Business">Business</option>
+            </select>
+
+            {/* Custom input */}
+            <input
+              type="text"
+              placeholder="Or write your own category..."
+              className="w-full mt-3 p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition"
+              value={formData.category}
+              onChange={(e) =>
+                setFormData({ ...formData, category: e.target.value })
+              }
+            />
           </div>
           <div className="flex items-center space-x-4 p-3 border border-gray-100 rounded-xl bg-gray-50 mt-7">
             <input
