@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   isAdmin: { type: Boolean, default: false },
+  likedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
   // New Fields for Verification & Security
   isVerified: { type: Boolean, default: false },
   verificationToken: String,
