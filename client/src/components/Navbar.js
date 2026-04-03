@@ -41,9 +41,14 @@ export default function Navbar() {
               Blogs
             </NavLink>
             {user?.isAdmin && (
-              <NavLink href="/admin/dashboard" className="text-gray-600 hover:text-blue-600 font-medium transition">
-                Dashboard
+              <>
+              <NavLink href="/admin/products" className="text-gray-600 hover:text-blue-600 font-medium transition">
+                Products
               </NavLink>
+              <NavLink href="/admin/users" className="text-gray-600 hover:text-blue-600 font-medium transition">
+                Users
+              </NavLink>
+              </>
             )}
           </div>
 
@@ -51,7 +56,9 @@ export default function Navbar() {
           <div className="flex items-center space-x-4">
             {user ? (
               <div className="flex items-center space-x-4">
-                <span className="text-sm text-gray-500 hidden sm:block">Hi, {user.name}</span>
+                <span className="text-sm text-gray-500 hidden sm:block cursor-pointer" onClick={() => router.push('/profile')}>
+                  Hi, {user.name}
+                </span>
                 <button 
                   onClick={handleLogout}
                   className="bg-red-50 text-red-600 px-4 py-2 rounded-lg text-sm font-bold hover:bg-red-100 transition"
