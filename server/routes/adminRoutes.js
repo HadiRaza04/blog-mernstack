@@ -4,6 +4,7 @@ import { protect } from '../middleware/authMiddleware.js';
 import { admin } from '../middleware/adminMiddleware.js';
 
 const adminRouter = express.Router();
+// Base Route: /api/admin
 
 // All routes here are restricted to Admins
 adminRouter.use(protect); // Ensure logged in

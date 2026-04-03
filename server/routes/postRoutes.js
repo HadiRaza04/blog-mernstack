@@ -16,9 +16,11 @@ import { admin } from '../middleware/adminMiddleware.js';
 import { upload } from '../config/cloudinary.js';
 
 const postRouter = express.Router();
+// Base Route: /api/posts
 
 // Existing Routes
 postRouter.get('/', getPosts);
+// postRouter.put('/:id/like', protect, likePost);
 postRouter.get('/query', getPostsByQuery);
 postRouter.get('/:id', getPostById);
 postRouter.post('/', protect, admin, upload.array('images', 5), createPost);
