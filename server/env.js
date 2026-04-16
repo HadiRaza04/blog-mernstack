@@ -10,5 +10,7 @@ export const CLOUDINARY_API_KEY=process.env.CLOUDINARY_API_KEY;
 export const CLOUDINARY_API_SECRET=process.env.CLOUDINARY_API_SECRET;
 export const FRONTEND_URL=process.env.FRONTEND_URL;
 export const NODE_ENV=process.env.NODE_ENV;
+export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+export const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 
 
